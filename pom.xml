@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.2.6.RELEASE</version>
+
+    </parent>
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.halo</groupId>
+    <artifactId>halo_blog</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>halo_blog</name>
+    <description>个人博客SpringBoot后端</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <lombok.version>1.18.20</lombok.version>
+        <jackson-databind.version>2.9.10.4</jackson-databind.version>
+        <mybatis.plus.boot.starter.version>3.2.0</mybatis.plus.boot.starter.version>
+    </properties>
+
+    <modules>
+        <module>halo_web</module>
+    </modules>
+
+</project>
