@@ -35,7 +35,7 @@ public class BlogController {
     @GetMapping("/blogs")
     public Result list(@RequestParam(defaultValue = "1") Integer currentPage) {
         Page page = new Page(currentPage, 5);
-        IPage pageData = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("created"));
+        IPage pageData = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("update_time"));
         return Result.success(pageData);
     }
 
@@ -51,14 +51,21 @@ public class BlogController {
     @PostMapping("/blog/edit")
     public Result edit(@Validated @RequestBody Blog blog) {
         Blog temp;
+        String msg = "";
+        int code = 200;
         if (blog.getId() != null) {
             temp = blogService.getById(blog.getId());
+            msg = "编辑成功";
             Assert.isTrue((temp.getUserId() == ShiroUtil.getProfile().getId()), "没有权限编辑");
         } else {
             temp = new Blog();
             temp.setUserId(ShiroUtil.getProfile().getId());
             temp.setCreated(LocalDateTime.now());
+            temp.setCreateTime(LocalDateTime.now());
+            temp.setCollectCount(0);
             temp.setStatus(0);
+            msg = "创建成功";
+            code = 201;
         }
 
         blog.setUpdateTime(LocalDateTime.now());
@@ -66,7 +73,7 @@ public class BlogController {
         BeanUtil.copyProperties(blog, temp, "id", "userId", "created", "blogLike", "create_time");
         blogService.saveOrUpdate(temp);
 
-        return Result.success(null);
+        return Result.success(code, msg, temp);
     }
 
     // 根据文章ID，给对应文章点赞

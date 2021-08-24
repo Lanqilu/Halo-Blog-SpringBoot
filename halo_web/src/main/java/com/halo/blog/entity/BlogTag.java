@@ -1,8 +1,12 @@
 package com.halo.blog.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -26,7 +30,13 @@ public class BlogTag implements Serializable {
     /**
      * 唯一uid
      */
-    private String uid;
+    @TableId(type = IdType.AUTO)
+    private Long id;
+
+    /**
+     * 用户ID
+     */
+    private Long userId;
 
     /**
      * 标签内容
@@ -34,7 +44,7 @@ public class BlogTag implements Serializable {
     private String content;
 
     /**
-     * 状态：1[启用]，2[删除]
+     * 状态：1[启用]，0[删除]
      */
     private Integer status;
 
