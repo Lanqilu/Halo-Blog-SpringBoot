@@ -1,11 +1,17 @@
-
 # DataSource Config
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/vueblog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://mysql:3306/halo_blog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: mogu2018
+  application:
+    name: halo-blog
+  cloud:
+    nacos:
+      server-addr: nacos:8848
+      username: nacos
+      password: nacos
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
   global-config:
@@ -32,3 +38,12 @@ halo:
     # token 有效期 7天 单位秒
     expire: 604800
     header: Authorization
+
+
+feign:
+  client:
+    config:
+      default:
+        # 增加 feign 调用时间
+        connectTimeout: 60000
+        readTimeout: 60000

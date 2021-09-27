@@ -8,6 +8,7 @@ import com.halo.blog.common.dto.LoginDto;
 import com.halo.blog.entity.User;
 import com.halo.blog.service.UserService;
 import com.halo.blog.util.JwtUtil;
+import com.halo.blog.client.MailClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -34,6 +35,15 @@ public class AccountController {
 
     @Autowired
     JwtUtil jwtUtil;
+
+    @Autowired
+    private MailClient mailClient;
+
+    @GetMapping("/mail/{email}")
+    void SimpleMailMessageTest(@PathVariable(name = "email") String email) {
+        mailClient.SimpleMailMessageTest(email);
+    }
+
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
