@@ -27,6 +27,7 @@ import java.util.List;
  */
 @RestController
 @Api(tags = "博客接口")
+@RequestMapping("/halo")
 public class BlogController {
 
     @Autowired
@@ -47,7 +48,7 @@ public class BlogController {
         return Result.success(blog);
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @PostMapping("/blog/edit")
     public Result edit(@Validated @RequestBody Blog blog) {
         Blog temp;

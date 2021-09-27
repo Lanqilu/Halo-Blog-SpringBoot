@@ -6,7 +6,7 @@ spring:
     username: root
     password: mogu2018
   application:
-    name: halo-blog
+    name: halo-web
   cloud:
     nacos:
       server-addr: nacos:8848
@@ -37,7 +37,7 @@ halo:
     secret: halo324567877
     # token 有效期 7天 单位秒
     expire: 604800
-    header: Authorization
+    header:
 
 
 feign:

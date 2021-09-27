@@ -8,7 +8,7 @@ import com.halo.blog.common.dto.LoginDto;
 import com.halo.blog.entity.User;
 import com.halo.blog.service.UserService;
 import com.halo.blog.util.JwtUtil;
-import com.halo.blog.client.MailClient;
+import com.halo.feign.clients.MailClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -28,6 +28,7 @@ import java.time.LocalDateTime;
  */
 @RestController
 @Api(value = "登录管理相关接口", tags = {"登录管理相关接口"})
+@RequestMapping("/halo")
 public class AccountController {
 
     @Autowired
@@ -37,13 +38,12 @@ public class AccountController {
     JwtUtil jwtUtil;
 
     @Autowired
-    private MailClient mailClient;
+    MailClient mailClient;
 
     @GetMapping("/mail/{email}")
     void SimpleMailMessageTest(@PathVariable(name = "email") String email) {
         mailClient.SimpleMailMessageTest(email);
     }
-
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
@@ -127,7 +127,7 @@ public class AccountController {
     }
 
     @ApiOperation(value = "退出登录", notes = "退出登录")
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/logout")
     public Result logout() {
         SecurityUtils.getSubject().logout();

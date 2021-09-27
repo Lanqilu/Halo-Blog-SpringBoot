@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2021-07-02
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/halo/user")
 @Api(tags = "用户接口")
 public class UserController {
     @Autowired
@@ -33,7 +33,7 @@ public class UserController {
         return Result.success(user);
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @GetMapping("/index2")
     public Result index2() {
         User user = userService.getById(1L);
