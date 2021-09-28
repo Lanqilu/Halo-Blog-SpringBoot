@@ -4,7 +4,6 @@ package com.halo.blog.controller;
 import cn.hutool.core.bean.BeanUtil;
 import com.halo.blog.util.ShiroUtil;
 import io.swagger.annotations.Api;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.util.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -17,7 +16,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

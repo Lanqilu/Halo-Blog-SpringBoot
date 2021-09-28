@@ -1,0 +1,4 @@
+pkslow:
+  jwt:
+    secretKey: dhfshfdhiudhgivhfdufbhbh
+    validityInMs: 600000

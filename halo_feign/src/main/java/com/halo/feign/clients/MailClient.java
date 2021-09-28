@@ -1,4 +1,4 @@
-package com.halo.blog.client;
+package com.halo.feign.clients;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 /**
  * @author Halo
- * @create 2021/09/27 下午 08:41
+ * @create 2021/09/28 上午 12:23
  * @description
  */
 @FeignClient("halo-mail")
 public interface MailClient {
-    // TODO 远程调用有问题
-    @GetMapping("/mail/{email}")
-    void SimpleMailMessageTest(@PathVariable(name = "email") String email);
+    @GetMapping("/mail/{email}/{code}")
+    void SimpleMailMessageTest(@PathVariable String email, @PathVariable String code);
 }

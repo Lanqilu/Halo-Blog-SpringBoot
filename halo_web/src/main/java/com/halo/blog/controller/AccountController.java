@@ -4,19 +4,22 @@ import cn.hutool.core.map.MapUtil;
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.halo.blog.common.Result;
-import com.halo.blog.common.dto.LoginDto;
 import com.halo.blog.entity.User;
+import com.halo.blog.service.AccountService;
 import com.halo.blog.service.UserService;
 import com.halo.blog.util.JwtUtil;
-import com.halo.feign.clients.MailClient;
+import com.halo.feign.clients.AuthClient;
+import com.halo.model.dto.LoginDto;
+import com.halo.model.dto.RegisterDto;
+import com.halo.model.vo.UserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.util.Assert;
 
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
@@ -28,7 +31,6 @@ import java.time.LocalDateTime;
  */
 @RestController
 @Api(value = "登录管理相关接口", tags = {"登录管理相关接口"})
-@RequestMapping("/halo")
 public class AccountController {
 
     @Autowired
@@ -38,59 +40,119 @@ public class AccountController {
     JwtUtil jwtUtil;
 
     @Autowired
-    MailClient mailClient;
+    private AccountService accountService;
+
+    @Autowired
+    AuthClient authClient;
+
+    @PostMapping("/login/test")
+    public Result loginTest(@RequestBody LoginDto request) {
+        User user = userService.getOne(new QueryWrapper<User>().eq("email", request.getEmail()));
+        Assert.notNull(user, "用户不存在");
+
+        // 密码是否正确
+        if (!user.getPassword().equals(SecureUtil.md5(request.getPassword()))) {
+            return Result.fail("密码不正确");
+        }
+        return Result.success(MapUtil.builder()
+                .put("token", authClient.loginTest(request))
+                .put("id", user.getId())
+                .put("username", user.getUsername())
+                .put("avatar", user.getAvatar())
+                .put("email", user.getEmail())
+                .map()
+        );
+    }
 
     @GetMapping("/mail/{email}")
-    void SimpleMailMessageTest(@PathVariable(name = "email") String email) {
-        mailClient.SimpleMailMessageTest(email);
+    void simpleMailMessageTest(@PathVariable(name = "email") String email) {
+        accountService.sentAuthMail(email);
     }
+
+    @GetMapping("/get/auth/{email}")
+    public Result getAuthCodeTest(@PathVariable String email) {
+        return Result.success(accountService.getAuthCode(email));
+    }
+
+    @ApiOperation(value = "发送邮箱验证码", notes = "发送邮箱验证码")
+    @GetMapping("/sent/{email}")
+    public Result sentAuthCodeMail(@PathVariable String email) {
+        QueryWrapper<User> emailQueryWrapper = new QueryWrapper<>();
+        emailQueryWrapper.eq("email", email);
+        User isRegister = userService.getOne(emailQueryWrapper);
+        if (isRegister != null) {
+            return Result.fail("该邮箱已注册账号");
+        }
+        boolean result = accountService.sentAuthMail(email);
+        if (!result) {
+            return Result.fail("验证码发送失败");
+        }
+        return Result.success("验证码发送成功");
+    }
+
 
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
-    public Result register(@RequestBody User userVO) {
+    public Result register(@RequestBody RegisterDto registerDto) {
 
-        QueryWrapper<User> userNameQueryWrapper = new QueryWrapper<>();
-        QueryWrapper<User> emailQueryWrapper = new QueryWrapper<>();
+        String email = registerDto.getEmail();
+        String userName = registerDto.getUsername();
+        String authCode = registerDto.getAuthCode();
 
-        userNameQueryWrapper.eq("username", userVO.getUsername());
-        User user = userService.getOne(userNameQueryWrapper);
-        if (user != null) {
+        // 验证验证码是否正确
+        if (!authCode.equals(accountService.getAuthCode(email))) {
+            return Result.fail("验证码错误");
+        }
+
+        // 判断用户名是否已经注册
+        if (accountService.isRegisterByUserName(userName)) {
             return Result.fail("用户名已被注册");
         }
 
-        emailQueryWrapper.eq("email", userVO.getEmail());
-        User email = userService.getOne(emailQueryWrapper);
-        if (email != null) {
+        // 判断邮箱是否已经注册
+        if (accountService.isRegisterByEmail(email)) {
             return Result.fail("邮箱已被注册");
         }
 
-        user = new User();
-        user.setUsername(userVO.getUsername());
-        user.setPassword(SecureUtil.md5(userVO.getPassword()));
-        user.setEmail(userVO.getEmail());
+        // 构造用户类
+        User user = new User();
+        user.setUsername(userName);
+        user.setPassword(SecureUtil.md5(registerDto.getPassword()));
+        user.setEmail(email);
         user.setCreated(LocalDateTime.now());
 
+        // 保存到数据库
         userService.save(user);
 
-        // TODO 发送邮件，进行账号激活
+        // 从数据库中查询刚注册的用户
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("email", registerDto.getEmail()).select("id", "username", "avatar", "email", "status");
+        User newUser = userService.getOne(wrapper);
 
-        return Result.success(200, "注册成功", user);
+        UserVo userVo = new UserVo();
+        BeanUtils.copyProperties(newUser, userVo);
+
+        return Result.success(200, "注册成功", userVo);
     }
 
     @ApiOperation(value = "用户登录", notes = "用户登录")
     @PostMapping("/login")
     public Result login(@Validated @RequestBody LoginDto loginDto, HttpServletResponse response) {
 
-        User user = userService.getOne(new QueryWrapper<User>().eq("email", loginDto.getEmail()));
+        String email = loginDto.getEmail();
+        String password = loginDto.getPassword();
+
+        User user = userService.getOne(new QueryWrapper<User>().eq("email", email));
         Assert.notNull(user, "用户不存在");
 
         // 密码是否正确
-        if (!user.getPassword().equals(SecureUtil.md5(loginDto.getPassword()))) {
+        if (!user.getPassword().equals(SecureUtil.md5(password))) {
             return Result.fail("密码不正确");
         }
 
         // 生成 JWT
         String jwt = jwtUtil.generateToken(user.getId());
+
 
         response.setHeader("Authorization", jwt);
         response.setHeader("Access-control-Expose-Headers", "Authorization");

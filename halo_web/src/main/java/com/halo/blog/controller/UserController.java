@@ -2,11 +2,9 @@ package com.halo.blog.controller;
 
 
 import com.halo.blog.common.Result;
-import com.halo.blog.entity.Blog;
 import com.halo.blog.entity.User;
 import com.halo.blog.service.UserService;
 import io.swagger.annotations.Api;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;

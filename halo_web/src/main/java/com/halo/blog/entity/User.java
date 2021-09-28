@@ -1,16 +1,14 @@
 package com.halo.blog.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
-
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -48,6 +46,4 @@ public class User implements Serializable {
     private LocalDateTime created;
 
     private LocalDateTime lastLogin;
-
-
 }

@@ -41,12 +41,15 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 
     <modules>
         <module>halo_web</module>
-        <module>halo-feign-api</module>
+        <module>halo_mail</module>
+        <module>halo_feign</module>
+        <module>halo_model</module>
     </modules>
 
 </project>
