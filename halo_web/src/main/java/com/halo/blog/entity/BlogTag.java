@@ -11,9 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
  * 标签表
- * </p>
  *
  * @author Halo
  * @since 2021-08-13

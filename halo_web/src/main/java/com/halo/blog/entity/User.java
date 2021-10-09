@@ -11,11 +11,9 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
- * <p>
+ * 用户表
  *
- * </p>
- *
- * @author 关注公众号：MarkerHub
+ * @author HALO
  * @since 2021-07-02
  */
 @Data

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 /**
  * @author Halo
  * @date Created in 2021/07/02 下午 09:23
- * @description 解决跨域问题
+ * @description 解决跨域问题配置类
  */
 
 @Configuration

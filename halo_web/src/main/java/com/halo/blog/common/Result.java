@@ -13,12 +13,28 @@ import java.io.Serializable;
 @Data
 public class Result implements Serializable {
 
-    // 200 表示正常，其他表示异常
+    /**
+     * 200 表示正常，其他表示异常
+     */
     private int code;
+    /**
+     * 消息
+     */
     private String msg;
+    /**
+     * 数据
+     */
     private Object data;
 
-    public static Result success(int code,String msg,Object data){
+    /**
+     * 成功返回
+     *
+     * @param code 状态码
+     * @param msg  消息
+     * @param data 数据
+     * @return Result 对象
+     */
+    public static Result success(int code, String msg, Object data) {
         Result result = new Result();
         result.setCode(code);
         result.setMsg(msg);
@@ -26,11 +42,11 @@ public class Result implements Serializable {
         return result;
     }
 
-    public static Result success(Object data){
-        return success(200,"操作成功",data);
+    public static Result success(Object data) {
+        return success(200, "操作成功", data);
     }
 
-    public static Result fail(int code,String msg,Object data){
+    public static Result fail(int code, String msg, Object data) {
         Result result = new Result();
         result.setCode(code);
         result.setMsg(msg);
@@ -38,13 +54,35 @@ public class Result implements Serializable {
         return result;
     }
 
-    public static Result fail(String msg,Object data){
-        return fail(400,msg,data);
+    public static Result fail(String msg, Object data) {
+        return fail(400, msg, data);
     }
 
-    public static Result fail(String msg){
-        return fail(400,msg,null);
+    public static Result fail(String msg) {
+        return fail(400, msg, null);
     }
 
+    /**
+     * 设置返回消息
+     *
+     * @param message 消息
+     * @return Result
+     */
+    public Result message(String message) {
+        this.setMsg(message);
+        return this;
+    }
+
+
+    /**
+     * 设置返回状态码
+     *
+     * @param code 状态码
+     * @return Result
+     */
+    public Result code(Integer code) {
+        this.setCode(code);
+        return this;
+    }
 
 }

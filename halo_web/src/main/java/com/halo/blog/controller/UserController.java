@@ -5,21 +5,17 @@ import com.halo.blog.common.Result;
 import com.halo.blog.entity.User;
 import com.halo.blog.service.UserService;
 import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * <p>
- * 前端控制器
- * </p>
- *
- * @author 关注公众号：MarkerHub
- * @since 2021-07-02
+ * @author Halo
  */
 @RestController
-@RequestMapping("/halo/user")
+@RequestMapping("/user")
 @Api(tags = "用户接口")
 public class UserController {
     @Autowired
@@ -31,7 +27,7 @@ public class UserController {
         return Result.success(user);
     }
 
-//    @RequiresAuthentication
+    @RequiresAuthentication
     @GetMapping("/index2")
     public Result index2() {
         User user = userService.getById(1L);

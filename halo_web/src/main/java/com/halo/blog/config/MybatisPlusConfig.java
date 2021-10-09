@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @author Halo
  * @date Created in 2021/07/02 下午 07:29
- * @description
+ * @description MybatisPlus 配置类
  */
 
 @Configuration

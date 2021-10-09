@@ -5,13 +5,12 @@ import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.halo.blog.common.Result;
 import com.halo.blog.entity.User;
+import com.halo.blog.model.dto.LoginDto;
+import com.halo.blog.model.dto.RegisterDto;
+import com.halo.blog.model.vo.UserVo;
 import com.halo.blog.service.AccountService;
 import com.halo.blog.service.UserService;
 import com.halo.blog.util.JwtUtil;
-import com.halo.feign.clients.AuthClient;
-import com.halo.model.dto.LoginDto;
-import com.halo.model.dto.RegisterDto;
-import com.halo.model.vo.UserVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.SecurityUtils;
@@ -27,7 +26,7 @@ import java.time.LocalDateTime;
 /**
  * @author Halo
  * @date Created in 2021/07/02 下午 09:26
- * @description
+ * @description 登录管理相关接口
  */
 @RestController
 @Api(value = "登录管理相关接口", tags = {"登录管理相关接口"})
@@ -41,28 +40,6 @@ public class AccountController {
 
     @Autowired
     private AccountService accountService;
-
-    @Autowired
-    AuthClient authClient;
-
-    @PostMapping("/login/test")
-    public Result loginTest(@RequestBody LoginDto request) {
-        User user = userService.getOne(new QueryWrapper<User>().eq("email", request.getEmail()));
-        Assert.notNull(user, "用户不存在");
-
-        // 密码是否正确
-        if (!user.getPassword().equals(SecureUtil.md5(request.getPassword()))) {
-            return Result.fail("密码不正确");
-        }
-        return Result.success(MapUtil.builder()
-                .put("token", authClient.loginTest(request))
-                .put("id", user.getId())
-                .put("username", user.getUsername())
-                .put("avatar", user.getAvatar())
-                .put("email", user.getEmail())
-                .map()
-        );
-    }
 
     @GetMapping("/mail/{email}")
     void simpleMailMessageTest(@PathVariable(name = "email") String email) {

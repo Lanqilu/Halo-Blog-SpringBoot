@@ -1,4 +1,4 @@
-package com.halo.model.dto;
+package com.halo.blog.model.dto;
 
 import lombok.Data;
 
@@ -8,7 +8,7 @@ import java.io.Serializable;
 /**
  * @author Halo
  * @create 2021/09/28 下午 08:08
- * @description 注册时提交的表单
+ * @description 注册时表单传入数据
  */
 @Data
 public class RegisterDto implements Serializable {

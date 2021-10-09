@@ -2,16 +2,17 @@ package com.halo.blog.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import com.halo.blog.util.ShiroUtil;
-import io.swagger.annotations.Api;
-import org.springframework.util.Assert;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.halo.blog.common.Result;
 import com.halo.blog.entity.Blog;
 import com.halo.blog.service.BlogService;
+import com.halo.blog.util.ShiroUtil;
+import io.swagger.annotations.Api;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * <p>
- * 前端控制器
- * </p>
+ * @author Halo
  */
 @RestController
 @Api(tags = "博客接口")
-@RequestMapping("/halo")
 public class BlogController {
 
     @Autowired
@@ -46,7 +44,7 @@ public class BlogController {
         return Result.success(blog);
     }
 
-//    @RequiresAuthentication
+    @RequiresAuthentication
     @PostMapping("/blog/edit")
     public Result edit(@Validated @RequestBody Blog blog) {
         Blog temp;

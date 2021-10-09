@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 /**
  * @author Halo
  * @create 2021/09/28 下午 03:41
- * @description
+ * @description 登录管理相关测试接口
  */
 @RestController
 @Api(value = "登录管理相关测试接口", tags = {"登录管理相关测试接口"})
@@ -23,11 +23,6 @@ public class AuthCodeTestController {
     public void setAuthCode(@RequestBody AuthCode authCode) {
         redisTemplate.opsForValue().set("email", authCode);
     }
-
-//    @GetMapping("/get/{key}")
-//    public AuthCode getAuthCode(@PathVariable String key) {
-//        return (AuthCode) redisTemplate.opsForValue().get(key);
-//    }
 
     @GetMapping("/get/{key}")
     @ApiOperation(value = "根据key获取redis的值", notes = "根据key获取redis的值")

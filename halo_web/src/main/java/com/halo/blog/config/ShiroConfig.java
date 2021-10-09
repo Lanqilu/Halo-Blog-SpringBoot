@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * @author Halo
  * @date Created in 2021/07/02 下午 08:05
- * @description
+ * @description Shiro 配置类
  */
 @Configuration
 public class ShiroConfig {
@@ -63,7 +63,8 @@ public class ShiroConfig {
     public ShiroFilterChainDefinition shiroFilterChainDefinition() {
         DefaultShiroFilterChainDefinition chainDefinition = new DefaultShiroFilterChainDefinition();
         Map<String, String> filterMap = new LinkedHashMap<>();
-        filterMap.put("/**", "jwt"); // 主要通过注解方式校验权限
+        // 主要通过注解方式校验权限
+        filterMap.put("/**", "jwt");
         chainDefinition.addPathDefinitions(filterMap);
         return chainDefinition;
     }
@@ -81,7 +82,9 @@ public class ShiroConfig {
         return shiroFilter;
     }
 
-    // 开启注解代理（默认好像已经开启，可以不要）
+    /**
+     * 开启注解代理（默认好像已经开启，可以不要）
+     */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();

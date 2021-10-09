@@ -14,7 +14,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * @author Halo
  * @date Created in 2021/07/03 下午 04:41
- * @description
+ * @description Swagger 配置类
  */
 @Configuration
 @EnableSwagger2

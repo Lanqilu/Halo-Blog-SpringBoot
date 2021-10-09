@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
+/**
+ * 代码生成器，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
+ *
+ * @author HALO
+ */
 public class CodeGenerator {
 
     /**
@@ -45,7 +49,7 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
         System.out.println("注意路径是否正确：" + projectPath);
         gc.setOutputDir(projectPath + "/src/main/java");
-//        gc.setOutputDir("D:\\test");
+        // gc.setOutputDir("D:\\test");
         gc.setAuthor("Halo");
         gc.setOpen(false);
         // gc.setSwagger2(true); 实体属性 Swagger2 注解
@@ -54,7 +58,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://mysql:3306/vueblog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
+        dsc.setUrl("jdbc:mysql://mysql:3306/halo_blog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");

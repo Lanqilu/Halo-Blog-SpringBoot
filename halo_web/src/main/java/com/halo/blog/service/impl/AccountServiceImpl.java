@@ -7,9 +7,10 @@ import com.halo.blog.entity.User;
 import com.halo.blog.mapper.UserMapper;
 import com.halo.blog.service.AccountService;
 import com.halo.blog.service.UserService;
-import com.halo.feign.clients.MailClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.Random;
@@ -23,13 +24,13 @@ import java.util.Random;
 public class AccountServiceImpl extends ServiceImpl<UserMapper, User> implements AccountService {
 
     @Autowired
-    private MailClient mailClient;
-
-    @Autowired
     private RedisTemplate redisTemplate;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    JavaMailSender mailSender;
 
     @Override
     public boolean sentAuthMail(String email) {
@@ -38,7 +39,13 @@ public class AccountServiceImpl extends ServiceImpl<UserMapper, User> implements
         // redis 存验证码
         try {
             redisTemplate.opsForValue().set(email, code);
-            mailClient.SimpleMailMessageTest(email, code);
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setSubject("Halo 验证码测试邮件");
+            message.setText("验证码是：" + code);
+            message.setTo(email);
+            message.setFrom("1379978893@qq.com");
+            mailSender.send(message);
+            System.out.println("邮件发送成功");
         } catch (Exception e) {
             System.out.println(e);
             return false;

@@ -17,10 +17,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * <p>
- * 标签表 前端控制器
- * </p>
- *
  * @author Halo
  * @since 2021-08-13
  */
