@@ -46,6 +46,10 @@ public class Result implements Serializable {
         return success(200, "操作成功", data);
     }
 
+    public static Result success() {
+        return success(200, "操作成功", null);
+    }
+
     public static Result fail(int code, String msg, Object data) {
         Result result = new Result();
         result.setCode(code);
@@ -60,6 +64,10 @@ public class Result implements Serializable {
 
     public static Result fail(String msg) {
         return fail(400, msg, null);
+    }
+
+    public static Result fail() {
+        return fail(400, "", null);
     }
 
     /**
