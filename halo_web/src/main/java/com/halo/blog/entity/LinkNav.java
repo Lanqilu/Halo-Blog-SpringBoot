@@ -26,10 +26,21 @@ public class LinkNav implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 唯一ID
+     * 主键ID
      */
     @TableId(value = "link_id", type = IdType.AUTO)
     private Long linkId;
+
+    /**
+     * 唯一ID
+     */
+    private Long linkUuid;
+
+    /**
+     * 链接创建者ID
+     */
+    private Long linkUid;
+
 
     /**
      * 链接标题

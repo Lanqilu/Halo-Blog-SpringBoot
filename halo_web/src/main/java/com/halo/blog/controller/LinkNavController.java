@@ -2,11 +2,16 @@ package com.halo.blog.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.lang.Snowflake;
+import cn.hutool.core.util.IdUtil;
 import com.halo.blog.common.Result;
 import com.halo.blog.entity.LinkNav;
+import com.halo.blog.entity.LinkUser;
 import com.halo.blog.model.dto.LinkDto;
 import com.halo.blog.model.vo.LinkVo;
 import com.halo.blog.service.LinkNavService;
+import com.halo.blog.service.LinkUserService;
+import com.halo.blog.util.ShiroUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +34,13 @@ import java.util.ArrayList;
 public class LinkNavController {
     @Autowired
     LinkNavService linkNavService;
+    @Autowired
+    LinkUserService linkUserService;
 
     @PostMapping("/edit")
     @ApiOperation(value = "编辑链接信息")
     public Result editLink(@Validated @RequestBody LinkDto linkDto) {
+
         LinkNav tempLinkNav;
         String msg = "";
         LocalDateTime now = LocalDateTime.now();
@@ -51,6 +59,30 @@ public class LinkNavController {
             tempLinkNav = new LinkNav();
             // 设置创建时间
             tempLinkNav.setCreateTime(now);
+
+            // 获取编辑者的ID
+            Long uid;
+            try {
+                uid = ShiroUtil.getProfile().getId();
+            } catch (Exception e) {
+                uid = 0L;
+            }
+
+            // 添加编辑者ID
+            tempLinkNav.setLinkUid(uid);
+
+            // 生成链接的唯一ID
+            Snowflake snowflake = IdUtil.createSnowflake(1, 1);
+            long uuid = snowflake.nextId();
+
+            // 添加链接 UUID
+            tempLinkNav.setLinkUuid(uuid);
+            // 添加用户和链接的关系表
+            LinkUser tempLinkUser = new LinkUser();
+            tempLinkUser.setLinkUuid(uuid);
+            tempLinkUser.setUid(uid);
+            tempLinkUser.setCreateTime(now);
+            linkUserService.save(tempLinkUser);
             msg = "新增链接成功";
         }
         // 设置更新时间
@@ -61,7 +93,6 @@ public class LinkNavController {
         linkNavService.saveOrUpdate(tempLinkNav);
         return Result.success().message(msg);
     }
-
 
     @DeleteMapping("/delete")
     @ApiOperation(value = "删除链接")
@@ -74,7 +105,7 @@ public class LinkNavController {
     }
 
     @GetMapping("/all")
-    @ApiOperation(value = "获取所有公共链接")
+    @ApiOperation(value = "获取所有公开链接")
     public Result getAllPublicLink() {
         ArrayList<LinkVo> linkVos = new ArrayList<>();
         for (LinkNav linkNav : linkNavService.getAllPublicLink()) {
@@ -84,4 +115,6 @@ public class LinkNavController {
         }
         return Result.success(200, "成功", linkVos);
     }
+
+
 }
