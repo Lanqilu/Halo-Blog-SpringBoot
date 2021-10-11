@@ -1,11 +1,12 @@
 package com.halo.blog.service;
 
-import com.halo.blog.entity.Blog;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.halo.blog.entity.Blog;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author 关注公众号：MarkerHub
@@ -13,5 +14,23 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BlogService extends IService<Blog> {
 
+    /**
+     * 返回所有博客
+     */
+    IPage<Blog> getAllBlog(int currentPage);
 
+    /**
+     * 安装点赞数返回博客
+     *
+     * @param blogCount 需要的数量
+     * @return 分页
+     */
+    IPage<Blog> getMostLikeBlog(int blogCount);
+
+    /**
+     * 根据博客ID返回对应博客内容
+     * @param blogId 博客ID
+     * @return 博客
+     */
+    Blog getBlogById(long blogId);
 }

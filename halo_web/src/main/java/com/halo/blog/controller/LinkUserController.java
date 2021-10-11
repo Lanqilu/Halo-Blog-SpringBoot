@@ -9,6 +9,7 @@ import com.halo.blog.service.LinkNavService;
 import com.halo.blog.service.LinkUserService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -31,6 +32,8 @@ public class LinkUserController {
     LinkUserService linkUserService;
     @Autowired
     LinkNavService linkNavService;
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     @PostMapping("/edit")
     public Result edit(@RequestBody LinkUserDto linkUserDto) {
@@ -50,6 +53,7 @@ public class LinkUserController {
      */
     @GetMapping("/getLink/{uid}")
     public Result getLinkByUid(@PathVariable Long uid) {
+        // 从数据库中查询
         List<LinkUser> list = linkUserService.getAllLink(uid);
         ArrayList<LinkNav> linkNavs = new ArrayList<>();
         for (LinkUser linkUser : list) {

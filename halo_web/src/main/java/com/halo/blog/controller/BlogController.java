@@ -3,8 +3,6 @@ package com.halo.blog.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.halo.blog.common.Result;
 import com.halo.blog.entity.Blog;
 import com.halo.blog.service.BlogService;
@@ -31,17 +29,12 @@ public class BlogController {
 
     @GetMapping("/blogs")
     public Result list(@RequestParam(defaultValue = "1") Integer currentPage) {
-        Page page = new Page(currentPage, 5);
-        IPage pageData = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("update_time"));
-        return Result.success(pageData);
+        return Result.success(blogService.getAllBlog(currentPage));
     }
 
     @GetMapping("/blog/{id}")
     public Result detail(@PathVariable(name = "id") Long id) {
-        Blog blog = blogService.getById(id);
-        Assert.notNull(blog, "该博客不存在或已被删除");
-        System.out.println("成功返回博客：" + id);
-        return Result.success(blog);
+        return Result.success(blogService.getBlogById(id));
     }
 
     @RequiresAuthentication
@@ -73,7 +66,9 @@ public class BlogController {
         return Result.success(code, msg, temp);
     }
 
-    // 根据文章ID，给对应文章点赞
+    /**
+     * 根据文章ID，给对应文章点赞
+     */
     @PostMapping("/blog/like/{blogId}")
     public Result like(@PathVariable(name = "blogId") Long blogId) {
         // TODO 一个用户只能点一个赞
@@ -85,16 +80,17 @@ public class BlogController {
         return Result.success(200, "点赞成功", like);
     }
 
-    // 获取点赞数最高的文章
+    /**
+     * 获取点赞数最高的文章
+     */
     @GetMapping("/blog/most/like/{blogCount}")
-    public Result mostLike(@PathVariable(name = "blogCount") Long blogCount) {
-        Page page = new Page(1, blogCount);
-        IPage pageData = blogService.page(page, new QueryWrapper<Blog>().orderByDesc("blog_like"));
-        System.out.println(pageData);
-        return Result.success(pageData);
+    public Result mostLike(@PathVariable(name = "blogCount") int blogCount) {
+        return Result.success(blogService.getMostLikeBlog(blogCount));
     }
 
-    // 根据用户 ID 查询，该用户文章的数目
+    /**
+     * 根据用户 ID 查询，该用户文章的数目
+     */
     @GetMapping("/blog/number/{userId}")
     public Result blogNumber(@PathVariable String userId) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
@@ -103,7 +99,9 @@ public class BlogController {
         return Result.success(count);
     }
 
-    // 根据用户 ID 查询，返回该用户所有文章
+    /**
+     * 根据用户 ID 查询，返回该用户所有文章
+     */
     @GetMapping("/blog/article/{userId}")
     public Result blogArticle(@PathVariable String userId) {
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();

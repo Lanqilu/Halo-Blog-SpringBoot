@@ -56,7 +56,7 @@ public class BlogTagController {
         } else {
             temp = new BlogTag();
             temp.setUserId(2L);
-//            temp.setUserId(ShiroUtil.getProfile().getId());
+            // temp.setUserId(ShiroUtil.getProfile().getId());
             temp.setCreateTime(LocalDateTime.now());
             temp.setStatus(1);
             temp.setClickCount(0);

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.halo.blog.entity.LinkNav;
 import com.halo.blog.mapper.LinkNavMapper;
 import com.halo.blog.service.LinkNavService;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,6 +26,7 @@ public class LinkNavServiceImpl extends ServiceImpl<LinkNavMapper, LinkNav> impl
     LinkNavMapper linkNavMapper;
 
     @Override
+    @Cacheable(value = "HALO_LINK_PUBLIC_ALL")
     public List<LinkNav> getAllPublicLink() {
         QueryWrapper<LinkNav> wrapper = new QueryWrapper<>();
         // 返回已发布并且状态正常的链接
