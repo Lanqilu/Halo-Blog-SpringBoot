@@ -62,9 +62,9 @@ public class AccountController {
         }
         boolean result = accountService.sentAuthMail(email);
         if (!result) {
-            return Result.fail("验证码发送失败");
+            return Result.fail().message("验证码发送失败");
         }
-        return Result.success("验证码发送成功");
+        return Result.success().message("验证码发送成功");
     }
 
 
@@ -75,6 +75,8 @@ public class AccountController {
         String email = registerDto.getEmail();
         String userName = registerDto.getUsername();
         String authCode = registerDto.getAuthCode();
+
+        System.out.println(email + userName + authCode);
 
         // 验证验证码是否正确
         if (!authCode.equals(accountService.getAuthCode(email))) {

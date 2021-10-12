@@ -13,6 +13,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -24,7 +25,7 @@ import java.util.Random;
 public class AccountServiceImpl extends ServiceImpl<UserMapper, User> implements AccountService {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private UserService userService;
@@ -34,14 +35,19 @@ public class AccountServiceImpl extends ServiceImpl<UserMapper, User> implements
 
     @Override
     public boolean sentAuthMail(String email) {
-        Random random = new Random();
-        String code = String.valueOf(random.nextInt(99999));
+        // 先从 Redis 中查询
+        String authCode = getAuthCode(email);
+        // 如果 Redis 中没有，才发送
+        if (Objects.equals(authCode, "")) {
+            Random random = new Random();
+            authCode = String.valueOf(random.nextInt(99999));
+            redisTemplate.opsForValue().set(email, authCode);
+        }
         // redis 存验证码
         try {
-            redisTemplate.opsForValue().set(email, code);
             SimpleMailMessage message = new SimpleMailMessage();
             message.setSubject("Halo 验证码测试邮件");
-            message.setText("验证码是：" + code);
+            message.setText("验证码是：" + authCode);
             message.setTo(email);
             message.setFrom("1379978893@qq.com");
             mailSender.send(message);
@@ -69,7 +75,7 @@ public class AccountServiceImpl extends ServiceImpl<UserMapper, User> implements
         QueryWrapper<User> emailQueryWrapper = new QueryWrapper<>();
         emailQueryWrapper.eq("email", email);
         User user = userService.getOne(emailQueryWrapper);
-        return user == null;
+        return user != null;
     }
 
     @Override
@@ -77,7 +83,7 @@ public class AccountServiceImpl extends ServiceImpl<UserMapper, User> implements
         QueryWrapper<User> userNameQueryWrapper = new QueryWrapper<>();
         userNameQueryWrapper.eq("username", userName);
         User user = userService.getOne(userNameQueryWrapper);
-        return user == null;
+        return user != null;
     }
 
 

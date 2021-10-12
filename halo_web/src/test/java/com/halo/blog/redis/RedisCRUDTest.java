@@ -54,4 +54,13 @@ public class RedisCRUDTest {
         String key = "testRedis";
         redisTemplate.delete(key);
     }
+
+    /**
+     * 删除
+     */
+    @Test
+    public void d2() {
+        String key = "HALO_BLOG::20";
+        redisTemplate.delete(key);
+    }
 }

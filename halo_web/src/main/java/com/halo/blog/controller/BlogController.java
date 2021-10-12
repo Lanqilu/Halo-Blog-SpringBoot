@@ -1,20 +1,16 @@
 package com.halo.blog.controller;
 
 
-import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.halo.blog.common.Result;
 import com.halo.blog.entity.Blog;
 import com.halo.blog.service.BlogService;
-import com.halo.blog.util.ShiroUtil;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -40,30 +36,13 @@ public class BlogController {
     @RequiresAuthentication
     @PostMapping("/blog/edit")
     public Result edit(@Validated @RequestBody Blog blog) {
-        Blog temp;
-        String msg = "";
-        int code = 200;
-        if (blog.getId() != null) {
-            temp = blogService.getById(blog.getId());
-            msg = "编辑成功";
-            Assert.isTrue((temp.getUserId() == ShiroUtil.getProfile().getId()), "没有权限编辑");
+        Long blogId = blog.getId();
+        // 判断是新建还是编辑
+        if (blogId == null) {
+            return blogService.newBlog(blog);
         } else {
-            temp = new Blog();
-            temp.setUserId(ShiroUtil.getProfile().getId());
-            temp.setCreated(LocalDateTime.now());
-            temp.setCreateTime(LocalDateTime.now());
-            temp.setCollectCount(0);
-            temp.setStatus(0);
-            msg = "创建成功";
-            code = 201;
+            return blogService.editBlog(blog);
         }
-
-        blog.setUpdateTime(LocalDateTime.now());
-
-        BeanUtil.copyProperties(blog, temp, "id", "userId", "created", "blogLike", "create_time");
-        blogService.saveOrUpdate(temp);
-
-        return Result.success(code, msg, temp);
     }
 
     /**
@@ -115,8 +94,8 @@ public class BlogController {
      */
     @DeleteMapping("/blog/delete/{blogId}")
     public Result deleteBlogByBlogId(@PathVariable Long blogId) {
-        boolean res = blogService.removeById(blogId);
-        return Result.success(200, "删除成功", res);
+        Boolean res = blogService.deleteBlog(blogId);
+        return res ? Result.success().message("删除成功") : Result.fail().message("删除失败");
     }
 
 }
