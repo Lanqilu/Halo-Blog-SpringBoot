@@ -2,6 +2,7 @@ package com.halo.blog.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -38,6 +39,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
 
+    /**
+     * 删除全局 Redis 缓存
+     */
     private void cleanRedis() {
         // 根据前缀匹配 keys
         Set<String> allKeys = redisTemplate.keys("HALO_BLOG_ALL" + "*");
@@ -50,6 +54,11 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
         }
     }
 
+    /**
+     * 删除指定博客的 Redis 缓存
+     *
+     * @param blogId 博客ID
+     */
     private void cleanRedis(Long blogId) {
         redisTemplate.delete("HALO_BLOG::" + blogId.toString());
     }
@@ -117,5 +126,19 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements Bl
     @CacheEvict(cacheNames = "HALO_BLOG", key = "#blogId")
     public Boolean deleteBlog(long blogId) {
         return blogMapper.deleteById(blogId) == 1;
+    }
+
+    @Override
+    public Integer giveLike(Long blogId) {
+        // 数据库中查询点赞数
+        QueryWrapper<Blog> wrapper = new QueryWrapper<>();
+        wrapper.eq("id", blogId).select("blog_like");
+        Blog blog = blogMapper.selectOne(wrapper);
+        // 点赞数加一
+        UpdateWrapper<Blog> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id", blogId).set("blog_like", blog.getBlogLike() + 1);
+        blogMapper.update(null, updateWrapper);
+
+        return blog.getBlogLike() + 1;
     }
 }

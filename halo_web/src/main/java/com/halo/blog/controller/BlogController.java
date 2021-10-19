@@ -48,15 +48,17 @@ public class BlogController {
     /**
      * 根据文章ID，给对应文章点赞
      */
-    @PostMapping("/blog/like/{blogId}")
+    @GetMapping("/blog/like/{blogId}")
     public Result like(@PathVariable(name = "blogId") Long blogId) {
         // TODO 一个用户只能点一个赞
-        Blog blog = blogService.getById(blogId);
-        Integer like = blog.getBlogLike();
-        like++;
-        blog.setBlogLike(like);
-        blogService.saveOrUpdate(blog);
-        return Result.success(200, "点赞成功", like);
+
+//
+//        Blog blog = blogService.getById(blogId);
+//        Integer like = blog.getBlogLike();
+//        like++;
+//        blog.setBlogLike(like);
+//        blogService.saveOrUpdate(blog);
+        return Result.success(200, "点赞成功", blogService.giveLike(blogId));
     }
 
     /**

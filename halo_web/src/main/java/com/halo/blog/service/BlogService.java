@@ -59,4 +59,12 @@ public interface BlogService extends IService<Blog> {
      * @return 是否删除成功
      */
     Boolean deleteBlog(long blogId);
+
+    /**
+     * 点赞博客
+     *
+     * @param blogId 博客id
+     * @return 点赞数
+     */
+    Integer giveLike(Long blogId);
 }

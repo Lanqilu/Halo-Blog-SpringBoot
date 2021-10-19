@@ -37,6 +37,8 @@ public class Blog implements Serializable {
     @NotBlank(message = "内容不能为空")
     private String content;
 
+    private String contentHtml;
+
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDateTime created;
 
