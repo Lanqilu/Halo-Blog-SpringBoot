@@ -6,7 +6,6 @@ import com.halo.blog.entity.Blog;
 import com.halo.blog.service.BlogService;
 import halo.base.common.Result;
 import io.swagger.annotations.Api;
-import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +32,7 @@ public class BlogController {
         return Result.success(blogService.getBlogById(id));
     }
 
-    @RequiresAuthentication
+//    @RequiresAuthentication
     @PostMapping("/blog/edit")
     public Result edit(@Validated @RequestBody Blog blog) {
         Long blogId = blog.getId();

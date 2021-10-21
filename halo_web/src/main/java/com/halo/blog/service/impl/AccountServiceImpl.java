@@ -67,7 +67,6 @@ public class AccountServiceImpl extends ServiceImpl<UserMapper, User> implements
         } else {
             return "";
         }
-
     }
 
     @Override

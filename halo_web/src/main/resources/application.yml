@@ -1,3 +1,5 @@
+server:
+  port: 8088
 # DataSource Config
 spring:
   # Redis 数据库配置
@@ -18,6 +20,7 @@ spring:
     url: jdbc:p6spy:mysql://mysql:3306/halo_blog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: mogu2018
+  # Spring Cloud
   application:
     name: halo-web
   cloud:
@@ -25,6 +28,14 @@ spring:
       server-addr: nacos:8848
       username: nacos
       password: nacos
+  # rabbitmq
+  rabbitmq:
+    host: halo # 主机名
+    port: 5672 # 端口
+    virtual-host: / # 虚拟主机
+    username: admin # 用户名
+    password: mogu2018 # 密码
+
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
   global-config:
@@ -33,8 +44,7 @@ mybatis-plus:
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
 
-server:
-  port: 8088
+
 
 # shiro
 shiro-redis:
