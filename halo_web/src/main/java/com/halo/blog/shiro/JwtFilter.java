@@ -2,9 +2,8 @@ package com.halo.blog.shiro;
 
 
 import cn.hutool.json.JSONUtil;
-import com.halo.blog.common.Result;
 import com.halo.blog.util.JwtUtil;
-import freemarker.template.utility.StringUtil;
+import halo.base.common.Result;
 import io.jsonwebtoken.Claims;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;

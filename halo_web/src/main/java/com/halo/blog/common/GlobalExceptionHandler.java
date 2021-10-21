@@ -1,5 +1,6 @@
 package com.halo.blog.common;
 
+import halo.base.common.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.ShiroException;
 import org.springframework.http.HttpStatus;

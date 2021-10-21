@@ -1,12 +1,12 @@
 package com.halo.blog.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.halo.blog.common.Result;
 import com.halo.blog.entity.LinkNav;
 import com.halo.blog.entity.LinkUser;
 import com.halo.blog.model.dto.LinkUserDto;
 import com.halo.blog.service.LinkNavService;
 import com.halo.blog.service.LinkUserService;
+import halo.base.common.Result;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;

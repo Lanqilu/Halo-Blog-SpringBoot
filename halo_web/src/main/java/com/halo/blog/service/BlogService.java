@@ -2,8 +2,8 @@ package com.halo.blog.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.halo.blog.common.Result;
 import com.halo.blog.entity.Blog;
+import halo.base.common.Result;
 
 /**
  * <p>

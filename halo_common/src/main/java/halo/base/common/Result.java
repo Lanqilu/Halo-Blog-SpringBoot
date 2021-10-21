@@ -1,5 +1,6 @@
-package com.halo.blog.common;
+package halo.base.common;
 
+import halo.base.global.StatusCode;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -43,11 +44,11 @@ public class Result implements Serializable {
     }
 
     public static Result success(Object data) {
-        return success(200, "操作成功", data);
+        return success(StatusCode.SUCCESS, "操作成功", data);
     }
 
     public static Result success() {
-        return success(200, "操作成功", null);
+        return success(StatusCode.SUCCESS, "操作成功", null);
     }
 
     public static Result fail(int code, String msg, Object data) {
@@ -59,15 +60,15 @@ public class Result implements Serializable {
     }
 
     public static Result fail(String msg, Object data) {
-        return fail(400, msg, data);
+        return fail(StatusCode.ERROR, msg, data);
     }
 
     public static Result fail(String msg) {
-        return fail(400, msg, null);
+        return fail(StatusCode.ERROR, msg, null);
     }
 
     public static Result fail() {
-        return fail(400, "", null);
+        return fail(StatusCode.ERROR, "", null);
     }
 
     /**

@@ -2,10 +2,10 @@ package com.halo.blog.controller;
 
 
 import cn.hutool.core.bean.BeanUtil;
-import com.halo.blog.common.Result;
 import com.halo.blog.entity.BlogTag;
 import com.halo.blog.service.BlogTagService;
 import com.halo.blog.util.ShiroUtil;
+import halo.base.common.Result;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

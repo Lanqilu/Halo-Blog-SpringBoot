@@ -4,8 +4,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.2.6.RELEASE</version>
-
+        <version>2.5.5</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -17,15 +16,41 @@
     <description>个人博客SpringBoot后端</description>
 
     <properties>
-        <java.version>1.8</java.version>
         <lombok.version>1.18.20</lombok.version>
         <jackson-databind.version>2.9.10.4</jackson-databind.version>
         <mybatis.plus.boot.starter.version>3.2.0</mybatis.plus.boot.starter.version>
+        <hutool.version>5.7.14</hutool.version>
+        <jjwt.version>0.9.1</jjwt.version>
         <spring-cloud.version>Hoxton.SR10</spring-cloud.version>
     </properties>
 
+    <!-- 管理jar包，不会引入 ，如果子工程需要哪些jar包，则具体地在子工程中引入，不过不需要写版本号-->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Mybatis-Plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.boot.starter.version}</version>
+            </dependency>
+            <!-- Hutool 工具类-->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <modules>
         <module>halo_web</module>
+        <module>halo_admin</module>
+        <module>halo_common</module>
     </modules>
 
 </project>

@@ -3,10 +3,10 @@ package com.halo.blog.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.halo.blog.common.Result;
 import com.halo.blog.entity.BlogSort;
 import com.halo.blog.service.BlogSortService;
 import com.halo.blog.util.ShiroUtil;
+import halo.base.common.Result;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;

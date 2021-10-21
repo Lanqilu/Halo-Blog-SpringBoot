@@ -2,9 +2,9 @@ package com.halo.blog.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.halo.blog.common.Result;
 import com.halo.blog.entity.Blog;
 import com.halo.blog.service.BlogService;
+import halo.base.common.Result;
 import io.swagger.annotations.Api;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;

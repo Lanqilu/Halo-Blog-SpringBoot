@@ -4,7 +4,6 @@ package com.halo.blog.controller;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.util.IdUtil;
-import com.halo.blog.common.Result;
 import com.halo.blog.entity.LinkNav;
 import com.halo.blog.entity.LinkUser;
 import com.halo.blog.model.dto.LinkDto;
@@ -12,10 +11,11 @@ import com.halo.blog.model.vo.LinkVo;
 import com.halo.blog.service.LinkNavService;
 import com.halo.blog.service.LinkUserService;
 import com.halo.blog.util.ShiroUtil;
+import halo.base.common.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -49,7 +49,7 @@ public class LinkNavController {
             // 通过ID查询Link
             tempLinkNav = linkNavService.getById(linkDto.getLinkId());
             // Link 不存在返回错误信息
-            if (StringUtils.isEmpty(tempLinkNav)) {
+            if (ObjectUtils.isEmpty(tempLinkNav)) {
                 msg = "链接ID不存在";
                 return Result.fail().message(msg);
             }
@@ -72,7 +72,7 @@ public class LinkNavController {
             tempLinkNav.setLinkUid(uid);
 
             // 生成链接的唯一ID
-            Snowflake snowflake = IdUtil.createSnowflake(1, 1);
+            Snowflake snowflake = IdUtil.getSnowflake(1, 1);
             long uuid = snowflake.nextId();
 
             // 添加链接 UUID
