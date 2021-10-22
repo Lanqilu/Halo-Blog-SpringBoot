@@ -1,10 +1,9 @@
-package com.halo.admin.utils;
+package halo.base.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.Data;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -16,18 +15,17 @@ import java.util.Date;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "markerhub.jwt")
 public class JwtUtils {
 
     /**
      * 过期时间, 单位 s
      */
-    private long expire;
+    private long expire = 604800;
     /**
      * 密钥
      */
-    private String secret;
-    private String header;
+    private String secret = "ji8n4ej4n439n43ld9ne9343ff6er49h";
+    private String header = "Authorization";
 
     /**
      * 生成 JWT

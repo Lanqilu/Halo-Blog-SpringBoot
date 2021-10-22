@@ -1,7 +1,8 @@
 package com.halo.admin.service;
 
+
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.halo.admin.entity.SysUserRole;
+import halo.base.entity.SysUserRole;
 
 /**
  * <p>

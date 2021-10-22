@@ -1,7 +1,8 @@
 package com.halo.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.halo.admin.entity.SysMenu;
+import halo.base.entity.SysMenu;
+
 
 /**
  * @author HALO

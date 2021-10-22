@@ -22,7 +22,7 @@ spring:
     # 邮箱
     username: 1379978893@qq.com
     # 16位授权码 不是邮箱密码
-    password: xxvdsssnufqzfhdi
+    password:
     # smtp的指定端口 使用465要将protocol改为smtps
     port: 587
     # 设置开启ssl
@@ -31,3 +31,6 @@ spring:
         stmp:
           ssl:
             enable: true
+halo:
+  mail:
+    username: Halo

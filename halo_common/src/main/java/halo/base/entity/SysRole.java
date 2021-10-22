@@ -1,4 +1,4 @@
-package com.halo.admin.entity;
+package halo.base.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
@@ -9,12 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author 我的公众号：MarkerHub
- * @since 2021-04-05
+ * @author Halo
+ * @create 2021/10/22 下午 08:32
+ * @description 用户角色数据表对应实体类
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -35,5 +32,5 @@ public class SysRole extends BaseEntity {
 
     @TableField(exist = false)
     private List<Long> menuIds = new ArrayList<>();
-
 }
+

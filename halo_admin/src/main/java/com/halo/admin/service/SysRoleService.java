@@ -1,9 +1,8 @@
 package com.halo.admin.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.halo.admin.entity.SysRole;
 
-import java.util.List;
+import com.baomidou.mybatisplus.extension.service.IService;
+import halo.base.entity.SysRole;
 
 /**
  * <p>
@@ -15,6 +14,6 @@ import java.util.List;
  */
 public interface SysRoleService extends IService<SysRole> {
 
-	List<SysRole> listRolesByUserId(Long userId);
+
 
 }

@@ -1,8 +1,8 @@
 package com.halo.admin.security;
 
 import cn.hutool.json.JSONUtil;
-import com.halo.admin.common.lang.Result;
-import com.halo.admin.utils.JwtUtils;
+import halo.base.common.Result;
+import halo.base.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -35,7 +35,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         String jwt = jwtUtils.generateToken(authentication.getName());
         response.setHeader(jwtUtils.getHeader(), jwt);
 
-        Result result = Result.succ("登录成功");
+        Result result = Result.success("登录成功");
 
         outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 

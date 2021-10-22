@@ -2,9 +2,16 @@ server:
   port: 8081
 # DataSource Config
 spring:
+  application:
+    name: halo-admin
+  cloud:
+    nacos:
+      server-addr: nacos:8848
+      username: nacos
+      password: nacos
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql:3306/vueadmin?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://mysql:3306/halo_blog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     username: root
     password: mogu2018
   # Redis 数据库配置
@@ -17,15 +24,12 @@ spring:
     port: 6379
     # Redis服务器连接密码（默认为空）
     password: mogu2018
-#  security:
-#    user:
-#      name: user
-#      password: 111111
+  # rabbitmq
+  rabbitmq:
+    host: halo # 主机名
+    port: 5672 # 端口
+    virtual-host: / # 虚拟主机
+    username: admin # 用户名
+    password: mogu2018 # 密码
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
-# 自定义配置
-markerhub:
-  jwt:
-    header: Authorization
-    expire: 604800 #7天，秒单位
-    secret: ji8n3439n439n43ld9ne9343fdfer49h

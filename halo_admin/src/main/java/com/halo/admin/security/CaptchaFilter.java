@@ -1,9 +1,9 @@
 package com.halo.admin.security;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.halo.admin.common.exception.CaptchaException;
-import com.halo.admin.common.lang.Const;
-import com.halo.admin.utils.RedisUtil;
+import com.halo.admin.exception.CaptchaException;
+import halo.base.common.HaloConst;
+import halo.base.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -62,11 +62,11 @@ public class CaptchaFilter extends OncePerRequestFilter {
             throw new CaptchaException("验证码为空");
         }
 
-        if (!code.equals(redisUtil.hget(Const.CAPTCHA_KEY, key))) {
+        if (!code.equals(redisUtil.hget(HaloConst.CAPTCHA_KEY, key))) {
             throw new CaptchaException("验证码错误");
         }
 
         // 一次性使用
-        redisUtil.hdel(Const.CAPTCHA_KEY, key);
+        redisUtil.hdel(HaloConst.CAPTCHA_KEY, key);
     }
 }

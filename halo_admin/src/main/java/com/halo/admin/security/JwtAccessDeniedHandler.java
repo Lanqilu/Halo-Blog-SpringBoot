@@ -1,7 +1,7 @@
 package com.halo.admin.security;
 
 import cn.hutool.json.JSONUtil;
-import com.halo.admin.common.lang.Result;
+import halo.base.common.Result;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

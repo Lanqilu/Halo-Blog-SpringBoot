@@ -6,6 +6,7 @@ package halo.base.global;
  * @description
  */
 public class BaseMessageConf {
+    public static final String REGISTER_SUCCESS = "注册成功";
     public static final String OPERATION_SUCCESS = "操作成功";
     public static final String OPERATION_FAIL = "操作失败";
     public static final String INSERT_SUCCESS = "插入成功";

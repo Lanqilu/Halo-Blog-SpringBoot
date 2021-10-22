@@ -1,9 +1,10 @@
 package com.halo.admin.service.impl;
 
+
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.halo.admin.entity.SysRoleMenu;
 import com.halo.admin.mapper.SysRoleMenuMapper;
 import com.halo.admin.service.SysRoleMenuService;
+import halo.base.entity.SysRoleMenu;
 import org.springframework.stereotype.Service;
 
 /**

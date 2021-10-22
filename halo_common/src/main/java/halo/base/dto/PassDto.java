@@ -1,4 +1,4 @@
-package com.halo.admin.common.dto;
+package halo.base.dto;
 
 import lombok.Data;
 

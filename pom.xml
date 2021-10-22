@@ -18,11 +18,12 @@
     <properties>
         <lombok.version>1.18.20</lombok.version>
         <jackson-databind.version>2.9.10.4</jackson-databind.version>
-        <mybatis-plus.boot.starter.version>3.2.0</mybatis-plus.boot.starter.version>
+        <mybatis-plus.boot.starter.version>3.4.0</mybatis-plus.boot.starter.version>
         <hutool.version>5.7.14</hutool.version>
         <jjwt.version>0.9.1</jjwt.version>
         <spring-cloud.version>2020.0.1</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
+        <kaptcha.version>0.0.9</kaptcha.version>
     </properties>
 
     <!-- 管理jar包，不会引入 ，如果子工程需要哪些jar包，则具体地在子工程中引入，不过不需要写版本号-->
@@ -60,6 +61,12 @@
                 <groupId>io.jsonwebtoken</groupId>
                 <artifactId>jjwt</artifactId>
                 <version>${jjwt.version}</version>
+            </dependency>
+            <!-- 图片验证码 -->
+            <dependency>
+                <groupId>com.github.axet</groupId>
+                <artifactId>kaptcha</artifactId>
+                <version>${kaptcha.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

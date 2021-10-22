@@ -67,7 +67,6 @@ public class AccountController {
         return Result.success().message("验证码发送成功");
     }
 
-
     @ApiOperation(value = "用户注册", notes = "用户注册")
     @PostMapping("/register")
     public Result register(@RequestBody RegisterDto registerDto) {

@@ -7,12 +7,13 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 /**
  * @author Halo
  * @create 2021/10/21 下午 11:40
- * @description
+ * @description 发送邮件工具类
  */
 @Slf4j
 @Component
@@ -46,7 +47,7 @@ public class SendMailUtils {
             helper.setTo(receiver);
 
             // 邮件发送者
-            helper.setFrom(sender);
+            helper.setFrom(new InternetAddress("halo123.top" + "<" + sender + ">"));
 
             mailSender.send(mimeMessage);
 

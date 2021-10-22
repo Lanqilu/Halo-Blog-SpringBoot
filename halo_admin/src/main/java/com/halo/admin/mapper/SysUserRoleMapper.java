@@ -1,7 +1,7 @@
 package com.halo.admin.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.halo.admin.entity.SysUserRole;
+import halo.base.entity.SysUserRole;
 
 
 /**

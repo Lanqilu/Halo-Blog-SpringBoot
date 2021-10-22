@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 /**
  * @author Halo
  * @create 2021/10/21 下午 10:55
- * @description
+ * @description RabbitMQ 消息接受测试组件
  */
 @Component
 public class SpringRabbitListener {

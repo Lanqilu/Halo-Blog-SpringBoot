@@ -1,8 +1,8 @@
 package com.halo.admin.security;
 
 
-import com.halo.admin.entity.SysUser;
 import com.halo.admin.service.SysUserService;
+import halo.base.entity.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;

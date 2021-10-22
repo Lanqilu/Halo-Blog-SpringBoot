@@ -1,4 +1,4 @@
-package com.halo.admin.entity;
+package halo.base.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
@@ -10,12 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author 我的公众号：MarkerHub
- * @since 2021-04-05
+ * @author Halo
+ * @create 2021/10/22 下午 08:37
+ * @description
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -24,7 +21,7 @@ public class SysMenu extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 父菜单ID，一级菜单为0
+     * 父菜单 id，一级菜单为 0
      */
     @NotNull(message = "上级菜单不能为空")
     private Long parentId;
@@ -33,7 +30,7 @@ public class SysMenu extends BaseEntity {
     private String name;
 
     /**
-     * 菜单URL
+     * 菜单 URL
      */
     private String path;
 
@@ -46,7 +43,7 @@ public class SysMenu extends BaseEntity {
     private String component;
 
     /**
-     * 类型     0：目录   1：菜单   2：按钮
+     * 类型 0：目录  1：菜单 2：按钮
      */
     @NotNull(message = "菜单类型不能为空")
     private Integer type;
@@ -65,3 +62,4 @@ public class SysMenu extends BaseEntity {
     @TableField(exist = false)
     private List<SysMenu> children = new ArrayList<>();
 }
+

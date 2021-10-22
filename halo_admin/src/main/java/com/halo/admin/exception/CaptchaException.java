@@ -1,4 +1,4 @@
-package com.halo.admin.common.exception;
+package com.halo.admin.exception;
 
 import org.springframework.security.core.AuthenticationException;
 

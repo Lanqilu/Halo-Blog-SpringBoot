@@ -1,9 +1,9 @@
 package com.halo.admin.security;
 
 import cn.hutool.core.util.StrUtil;
-import com.halo.admin.entity.SysUser;
 import com.halo.admin.service.SysUserService;
-import com.halo.admin.utils.JwtUtils;
+import halo.base.entity.SysUser;
+import halo.base.util.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import org.springframework.beans.factory.annotation.Autowired;

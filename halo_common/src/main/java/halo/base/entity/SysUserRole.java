@@ -1,29 +1,29 @@
-package com.halo.admin.entity;
-
+package halo.base.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 /**
- * <p>
- * 
- * </p>
- *
- * @author 我的公众号：MarkerHub
- * @since 2021-04-05
+ * @author Halo
+ * @create 2021/10/22 下午 08:35
+ * @description
  */
 @Data
-public class SysRoleMenu {
+public class SysUserRole {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
+    /**
+     * 用户 id
+     */
+    private Long userId;
+
+    /**
+     * 角色 id
+     */
     private Long roleId;
-
-    private Long menuId;
-
-
 }

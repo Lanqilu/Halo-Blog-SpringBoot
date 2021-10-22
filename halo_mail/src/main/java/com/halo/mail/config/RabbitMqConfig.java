@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 /**
  * @author Halo
  * @create 2021/10/21 下午 10:58
- * @description
+ * @description RabbitMQ 队列和交换机配置类
  */
 @Configuration
 public class RabbitMqConfig {
@@ -37,9 +37,9 @@ public class RabbitMqConfig {
     /**
      * halo.email 队列绑定交换机，指定 routingKey
      *
-     * @param queue
-     * @param exchange
-     * @return
+     * @param queue    队列
+     * @param exchange 交换机
+     * @return 绑定
      */
     @Bean
     public Binding BINDING_QUEUE_INFORM_EMAIL(@Qualifier(HALO_EMAIL) Queue queue, @Qualifier(EXCHANGE_DIRECT) Exchange exchange) {

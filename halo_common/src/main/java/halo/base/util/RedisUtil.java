@@ -1,4 +1,4 @@
-package com.halo.admin.utils;
+package halo.base.util;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -12,6 +12,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * @author HALO
+ */
 @Component
 public class RedisUtil {
 
@@ -133,8 +136,8 @@ public class RedisUtil {
     /**
      * 递增
      *
-     * @param key 键
-     * @param delta  要增加几(大于0)
+     * @param key   键
+     * @param delta 要增加几(大于0)
      * @return
      */
     public long incr(String key, long delta) {
@@ -147,8 +150,8 @@ public class RedisUtil {
     /**
      * 递减
      *
-     * @param key 键
-     * @param delta  要减少几(小于0)
+     * @param key   键
+     * @param delta 要减少几(小于0)
      * @return
      */
     public long decr(String key, long delta) {
@@ -562,6 +565,7 @@ public class RedisUtil {
     }
 
     //================有序集合 sort set===================
+
     /**
      * 有序set添加元素
      *
@@ -588,15 +592,16 @@ public class RedisUtil {
 
     /**
      * 获取zset数量
+     *
      * @param key
      * @param value
      * @return
      */
     public long getZsetScore(String key, Object value) {
         Double score = redisTemplate.opsForZSet().score(key, value);
-        if(score==null){
+        if (score == null) {
             return 0;
-        }else{
+        } else {
             return score.longValue();
         }
     }
@@ -604,6 +609,7 @@ public class RedisUtil {
     /**
      * 获取有序集 key 中成员 member 的排名 。
      * 其中有序集成员按 score 值递减 (从大到小) 排序。
+     *
      * @param key
      * @param start
      * @param end

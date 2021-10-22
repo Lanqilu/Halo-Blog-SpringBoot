@@ -56,10 +56,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      * 拦截白名单
      */
     private static final String[] URL_WHITELIST = {
-
+            "/hello",
             "/login",
             "/logout",
-            "/captcha",
+            "/auth/captcha",
+            "/auth/register",
+            "/auth/sent/*",
             "/favicon.ico",
 
     };
@@ -67,7 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.cors().and().csrf().disable()
 
                 // 登录配置
@@ -102,9 +103,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // JWT 认证过滤器
                 .addFilter(jwtAuthenticationFilter())
                 // 验证码过滤器在 UsernamePasswordAuthenticationFilter 之前
-                .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
-
-        ;
+                .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class);
 
     }
 

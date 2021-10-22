@@ -1,14 +1,13 @@
 package com.halo.admin.service;
 
-import com.baomidou.mybatisplus.extension.service.IService;
-import com.halo.admin.common.dto.SysMenuDto;
-import com.halo.admin.entity.SysMenu;
 
-import java.util.List;
+import com.baomidou.mybatisplus.extension.service.IService;
+import halo.base.entity.SysMenu;
+
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author 我的公众号：MarkerHub
@@ -16,8 +15,6 @@ import java.util.List;
  */
 public interface SysMenuService extends IService<SysMenu> {
 
-	List<SysMenuDto> getCurrentUserNav();
 
-	List<SysMenu> tree();
 
 }

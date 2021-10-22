@@ -1,8 +1,8 @@
 package com.halo.admin.security;
 
 import cn.hutool.json.JSONUtil;
-import com.halo.admin.common.lang.Result;
-import com.halo.admin.utils.JwtUtils;
+import halo.base.common.Result;
+import halo.base.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
@@ -14,7 +14,11 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
+/**
+ * @author HALO
+ */
 @Component
 public class JwtLogoutSuccessHandler implements LogoutSuccessHandler {
 
@@ -33,9 +37,9 @@ public class JwtLogoutSuccessHandler implements LogoutSuccessHandler {
 
 		response.setHeader(jwtUtils.getHeader(), "");
 
-		Result result = Result.succ("");
+		Result result = Result.success("");
 
-		outputStream.write(JSONUtil.toJsonStr(result).getBytes("UTF-8"));
+		outputStream.write(JSONUtil.toJsonStr(result).getBytes(StandardCharsets.UTF_8));
 
 		outputStream.flush();
 		outputStream.close();
